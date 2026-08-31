@@ -1,0 +1,17 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "java.dependency.syncWithFolderExplorer": false,
+    "java.project.sourcePaths": [ "lessons" ],
+    "java.project.outputPath": "bin",
+    "terminal.integrated.env.linux": {
+        "CLASSPATH": "${workspaceFolder}/lib/algs4.jar:."
+    },
+    "terminal.integrated.env.osx": {
+        "CLASSPATH": "${workspaceFolder}/lib/algs4.jar:."
+    },
+    "terminal.integrated.env.windows": {
+        "CLASSPATH": "${workspaceFolder}\\lib\\algs4.jar;."
+    }
+}
