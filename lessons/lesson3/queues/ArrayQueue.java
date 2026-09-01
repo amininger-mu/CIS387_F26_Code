@@ -24,13 +24,21 @@ public class ArrayQueue<Item> implements Queue<Item> {
 
     @Override
     public Item dequeue() {
-
-        return null;
+        Item item = a[0];
+        n--;
+        for (int i = 0; i < n; i++) {
+            a[i] = a[i+1];
+        }
+        a[n] = null;
+        return item;
     }
 
     @Override
     public void enqueue(Item item) {
-
+        if (n == a.length) {
+            resize(a.length*2);
+        }
+        a[n++] = item;
     }
 
 
@@ -42,12 +50,20 @@ public class ArrayQueue<Item> implements Queue<Item> {
         a = temp;
     }
 
-    //private class ArrayIterator implements Iterator<Item> {
 
-    //} 
+    private class ArrayIterator implements Iterator<Item> {
+        private int index = 0;
+        public boolean hasNext() {
+            return index < n;
+        }
+        public Item next() {
+            return a[index++];
+        }
+        public void remove() { } // not supported
+    } 
 
     @Override
     public Iterator<Item> iterator() {
-        return null; //new ArrayIterator();
+        return new ArrayIterator();
     }
 }
