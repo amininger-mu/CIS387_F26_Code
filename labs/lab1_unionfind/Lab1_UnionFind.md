@@ -30,7 +30,7 @@ Run `DoublingTest.java` and record the following information (it will take aroun
 
 <div class="vs-sm">&nbsp;</div>
 
-### 2B. Notice the Ratio column, which says how many times longer each iteration took than the previous (with problem size N doubling each time). What do you notice?
+### 2B. Notice the Ratio column, which says how many times longer each iteration took than the previous (with problem size N doubling each time). What do you observe about the Ratio values?
 
 <div class="vs-lg">&nbsp;</div>
 
