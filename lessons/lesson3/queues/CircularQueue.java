@@ -3,13 +3,50 @@ package lesson3.queues;
 import java.util.Iterator;
 
 @SuppressWarnings("unchecked")
-public class ArrayQueue<Item> implements Queue<Item> {
+public class CircularQueue<Item> implements Queue<Item> {
     private Item[] a;
+    private int first;
+    private int last;
     private int n;
 
-    public ArrayQueue () {
+    public CircularQueue () {
         a = (Item[])new Object[4];
-        n = 0;
+        first = 0;
+        last = 0;
+    }
+
+    @Override
+    public Item dequeue() {
+        Item front = a[first];
+        a[first] = null;
+        n--;
+        first = (first + 1) % a.length;
+
+        if (n > 1 && n <= a.length / 4) {
+            resize(a.length/2);
+        }
+
+        return front;
+    }
+
+    @Override
+    public void enqueue(Item item) {
+        if (n == a.length) {
+            resize(a.length*2);
+        }
+        a[last] = item;
+        n++;
+        last = (last + 1) % a.length;
+    }
+
+    private void resize(int newLength) {
+        Item[] newArray = (Item[])new Object[newLength];
+        for (int i = 0; i < n; i++) {
+            newArray[i] = a[(first + i) % a.length];
+        }
+        first = 0;
+        last = n;
+        a = newArray;
     }
 
     @Override
@@ -22,44 +59,18 @@ public class ArrayQueue<Item> implements Queue<Item> {
         return n;
     }
 
-    @Override
-    public Item dequeue() {
-        Item front = a[0];
-        n--;
-        for (int i = 0; i < n; i++) {
-            a[i] = a[i+1];
-        }
-        a[n] = null;
-        if (n > 1 && n <= a.length / 4) {
-            resize(a.length/2);
-        }
-        return front;
-    }
-
-    @Override
-    public void enqueue(Item item) {
-        if (n == a.length) {
-            resize(a.length*2);
-        }
-        a[n++] = item;
-    }
-
-
-    private void resize(int newLength) {
-        Item[] newArray = (Item[])new Object[newLength];
-        for (int i = 0; i < n; i++) {
-            newArray[i] = a[i];
-        }
-        a = newArray;
-    }
-
     private class ArrayIterator implements Iterator<Item> {
-        private int index = 0;
+        private int index;
+        public ArrayIterator() {
+            index = first;
+        }
         public boolean hasNext() {
-            return index < n;
+            return index != last;
         }
         public Item next() {
-            return a[index++];
+            Item item = a[index];
+            index = (index + 1) % a.length;
+            return item;
         }
         public void remove() { } // not supported
     } 
@@ -69,3 +80,4 @@ public class ArrayQueue<Item> implements Queue<Item> {
         return new ArrayIterator();
     }
 }
+

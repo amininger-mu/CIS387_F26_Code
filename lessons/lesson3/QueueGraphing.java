@@ -3,13 +3,8 @@ package lesson3;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeSet;
 
-import lesson3.queues.Queue;
-import lesson3.impl.ArrayQueue;
-import lesson3.impl.CircularQueue;
-import lesson3.impl.LinkedListQueue;
-
+import lesson3.queues.*;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdIn;
 
@@ -21,38 +16,43 @@ public class QueueGraphing
         int count = StdIn.readInt();
 
         System.out.printf("Running Array test with %d items\n", count);
-        profileQueueTimes(new ArrayQueue<Integer>(), "Array", count);
+        profileEnqueueTimes(new ArrayQueue<Integer>(), "Array", count);
 
-        System.out.println();
+        System.out.println("Waiting");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
 
         System.out.printf("Running LinkedList test with %d items\n", count);
-        profileQueueTimes(new LinkedListQueue<Integer>(), "Linked List", count);
+        profileEnqueueTimes(new LinkedListQueue<Integer>(), "Linked List", count);
     }
 
-    private static void profileQueueTimes(Queue<Integer> queue, String name, int count) {
-
+    private static void profileEnqueueTimes(Queue<Integer> queue, String name, int count) {
         /*************** STEP 1: ENQUEUE N ITEMS ******************/
 
         // Map recording the frequency of each reported elapsed time
         Map<Long, Integer> enqueueHistogram = new HashMap<>();
 
+        long maxTime = 0;
+
         for (int i = 0; i < count; i++) {
             long start = System.nanoTime();
             queue.enqueue(i);
             long elapsed = (System.nanoTime() - start) / 1000;
+            maxTime = Math.max(maxTime, elapsed);
 
             int tally = enqueueHistogram.getOrDefault(elapsed, 0);
             enqueueHistogram.put(elapsed, tally+1);
         }
 
+        System.out.println("Max enqueue time was " + maxTime);
         scatterPlot("Enqueue: " + name, enqueueHistogram);
+    }
 
-        /*************** STEP 2: DEQUEUE N ITEMS ******************/
-
+    private static void profileDequeueTimes(Queue<Integer> queue, String name) {
         // Map recording the frequency of each reported elapsed time
         Map<Long, Integer> dequeueHistogram = new HashMap<>();
 
-        for (int i = 0; i < count; i++) {
+        while (!queue.isEmpty()) {
             long start = System.nanoTime();
             queue.dequeue();
             long elapsed = (System.nanoTime() - start) / 1000;

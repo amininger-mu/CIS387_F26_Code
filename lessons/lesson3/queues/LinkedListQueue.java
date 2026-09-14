@@ -14,8 +14,7 @@ public class LinkedListQueue<Item> implements Queue<Item> {
 
     @Override
     public boolean isEmpty() {
-
-        return true;
+        return n == 0;
     }
 
     @Override
@@ -25,13 +24,26 @@ public class LinkedListQueue<Item> implements Queue<Item> {
 
     @Override
     public Item dequeue() {
-
-        return null;
+        Item front = first.item;
+        first = first.next;
+        n--;
+        if (first == null) {
+            last = null;
+        }
+        return front;
     }
 
     @Override
     public void enqueue(Item item) {
-
+        Node node = new Node();
+        node.item = item;
+        if (last == null) {
+            first = node;
+        } else {
+            last.next = node;
+        }
+        last = node;
+        n++;
     }
 
     private class LLIterator implements Iterator<Item> {
