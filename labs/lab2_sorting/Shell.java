@@ -1,4 +1,3 @@
-package sorting;
 /**************************************************************************
  *  Class: Shell.java
  * 
@@ -10,16 +9,18 @@ package sorting;
  ***********************************************************************/
 
 import java.util.Arrays;
-import edu.princeton.cs.algs4.StdIn;
 
 public class Shell {
 
     /**
-     * Rearranges the array in ascending order, using the natural order.
-     * @param a the array to be sorted
+	 * sort(a)
+	 *
+	 * Arranges the given array in ascending order using shell sort
+	 *
+	 * Starting with stride h, h-sorts the array using insertion sort,
+	 *   and repeats, dividing h / 3, until insertion sorts with h=1
      */
-    public static <T extends Comparable<T>>
-    void sort(T[] a) {
+    public static void sort(int[] a) {
         int n = a.length;
 
         // 3x+1 increment sequence:  1, 4, 13, 40, 121, 364, 1093, ...
@@ -29,7 +30,7 @@ public class Shell {
         while (h >= 1) {
             // h-sort the array
             for (int i = h; i < n; i++) {
-                for (int j = i; j >= h && Sort.less(a[j], a[j-h]); j -= h) {
+                for (int j = i; j >= h && a[j] < a[j-h]; j -= h) {
                     Sort.exchange(a, j, j-h);
                 }
             }
@@ -38,10 +39,10 @@ public class Shell {
     }
 
     public static void main(String[] args) {
-        String[] a = StdIn.readAllStrings();
-        Insertion.sort(a);
-        assert Sort.isSorted(a);
-        System.out.println(Arrays.toString(a));
+        int n = 10;
+        if (args.length > 0) {
+            n = Integer.parseInt(args[0]);
+        }
+        Sort.runTest(n, Shell::sort);
     }
-
 }

@@ -2,7 +2,6 @@ package lesson2_adts;
 
 import java.util.Iterator;
 
-@SuppressWarnings("unchecked")
 public class IntStack implements Iterable<Integer> {
 
     private int[] a;

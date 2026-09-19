@@ -24,6 +24,8 @@ public class QueueGraphing
 
         System.out.printf("Running LinkedList test with %d items\n", count);
         profileEnqueueTimes(new LinkedListQueue<Integer>(), "Linked List", count);
+
+        scanner.close();
     }
 
     private static void profileEnqueueTimes(Queue<Integer> queue, String name, int count) {
