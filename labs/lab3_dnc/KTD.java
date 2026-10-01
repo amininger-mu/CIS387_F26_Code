@@ -21,8 +21,6 @@ public class KTD {
     }
 
     static int ktd(Preference p1, Preference p2) {
-        System.out.println(Arrays.toString(p1.order));
-        System.out.println(Arrays.toString(p2.order));
         return ktd(p1.order, p2.order);
     }
 
@@ -39,7 +37,6 @@ public class KTD {
             arr[i] = pos[arr[i]];
         }
         int[] aux = arr.clone();
-        System.out.println(Arrays.toString(arr));
         return ktd(arr, aux, 0, arr.length-1);
     }
 
@@ -106,6 +103,26 @@ public class KTD {
         System.out.println("Closest Preference: ");
         System.out.println(" - " + p1.name);
         System.out.println(" - " + p2.name);
+		System.out.println(Arrays.toString(p1.order));
+		System.out.println(Arrays.toString(p2.order));
+        System.out.println(" Distance = " + minDist);
+
+		int[] min = { 4,6,5,1,2,0,7,9,3,8 };
+		Preference prof = new Preference("Mininger", min);
+
+        minDist = Integer.MAX_VALUE;
+
+        for (int i = 0; i < preferences.size()-1; i++) {
+			int dist = ktd(preferences.get(i), prof);
+			if (dist < minDist) {
+				minDist = dist;
+				p1 = preferences.get(i);
+            }
+        }
+        System.out.println("Closest Preference: ");
+        System.out.println(" - " + p1.name);
+		System.out.println(Arrays.toString(p1.order));
+		System.out.println(Arrays.toString(prof.order));
         System.out.println(" Distance = " + minDist);
     }
 }

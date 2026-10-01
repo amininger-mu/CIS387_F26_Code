@@ -2,7 +2,7 @@
 
 ## Part 1: RSA
 
-Note: Look online for a list of primes, choose primes _p, q, d_ that are > 100
+Note: Look online for a list of primes, choose primes _p, q, e_ that are > 100
 
 ### 1. Write primes _p_ and _q_ (> 100): 
 
@@ -33,7 +33,7 @@ Compute _d_ such that (e*d mod phi == 1)
 <br>
 
 ### 7. Encrypt your message with another student's public key
-Use `ModExp` program to compute $m^e \mod n$
+Use `ModExp` program to compute $c = m^e \mod n$
 
 <br>
 
