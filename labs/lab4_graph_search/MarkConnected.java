@@ -37,17 +37,19 @@ public class MarkConnected {
     }
 
     // Recursively marks reachable vertices using depth first search
-    private void dfs(Graph G, int v) {
-        marked[v] = true;
+    private void dfs(Graph G, int s) {
         LinkedList<Integer> stack = new LinkedList<Integer>();
-        stack.push(v);
+        stack.push(s);
         while (!stack.isEmpty()) {
-            v = stack.pop();
+            int v = stack.pop();
+            if (marked[v]) {
+                continue;
+            }
+            marked[v] = true;
             count++;
 
             for (int w : G.adj(v)) {
                 if (!marked[w]) {
-                    marked[w] = true;
                     stack.push(w);
                 }
             }
