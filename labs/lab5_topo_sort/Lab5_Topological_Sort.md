@@ -5,7 +5,7 @@
 
 ## Submission Instructions
 
-**Due Date:** Nov 17 at 11:59am (beginning of class!)
+**Due Date:** Nov 18 at 11:59am (beginning of class!)
 
 **To Submit:** Upload your completed `PackageDependencies.java` file, plus the image you generated. 
 
